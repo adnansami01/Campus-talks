@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Campus Talks – API Overview</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 2rem;
+      background: #f5f5f5;
+    }
+    h1 {
+      color: #333;
+    }
+    code {
+      background: #eee;
+      padding: 4px;
+      border-radius: 4px;
+    }
+    .container {
+      background: white;
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 0 8px rgba(0,0,0,0.1);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>📄 Campus Talks – Thread Summarizer API</h1>
+    <p>This project is a server-side function written in TypeScript (Deno) that uses:</p>
+    <ul>
+      <li>🔐 <strong>Supabase</strong> for user/session & data</li>
+      <li>🧠 <strong>OpenAI</strong> for summarizing threads</li>
+    </ul>
+    <p>The API expects a JSON body like:</p>
+    <pre><code>{
+  "threadId": "your_thread_id_here"
+}</code></pre>
+    <p>It responds with a conversation summary after validating the request.</p>
+
+    <p><strong>Note:</strong> This HTML is just a static info page. The backend logic runs on a server, not GitHub Pages.</p>
+  </div>
+</body>
+</html>
