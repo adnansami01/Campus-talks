@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Campus Talks – API Overview</title>
+  <title>Campus Talks – Thread Summarizer</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -24,15 +24,24 @@
       border-radius: 8px;
       box-shadow: 0 0 8px rgba(0,0,0,0.1);
     }
+    .input-section {
+      margin-top: 1.5rem;
+    }
+    input, button {
+      padding: 0.6rem;
+      font-size: 1rem;
+      margin-right: 0.5rem;
+    }
+    #output {
+      margin-top: 1rem;
+      padding: 1rem;
+      background-color: #e7f3ff;
+      border-left: 5px solid #2196F3;
+      white-space: pre-wrap;
+    }
   </style>
 </head>
 <body>
-  fetch("https://campus-talks-backend.deno.dev", {
-  method: "POST",
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify({ threadId: "..." }),
-});
-
   <div class="container">
     <h1>📄 Campus Talks – Thread Summarizer API</h1>
     <p>This project is a server-side function written in TypeScript (Deno) that uses:</p>
@@ -44,9 +53,43 @@
     <pre><code>{
   "threadId": "your_thread_id_here"
 }</code></pre>
-    <p>It responds with a conversation summary after validating the request.</p>
 
-    <p><strong>Note:</strong> This HTML is just a static info page. The backend logic runs on a server, not GitHub Pages.</p>
+    <div class="input-section">
+      <input type="text" id="threadId" placeholder="Enter thread ID here" />
+      <button onclick="summarizeThread()">Summarize</button>
+    </div>
+
+    <div id="output"></div>
+
+    <p><strong>Note:</strong> This HTML is static. The summarization logic runs on a Deno server, not GitHub Pages.</p>
   </div>
+
+  <script>
+    function summarizeThread() {
+      const threadId = document.getElementById("threadId").value;
+      const output = document.getElementById("output");
+
+      output.innerText = "⏳ Summarizing... Please wait.";
+
+      fetch("https://campus-talks-backend.deno.dev", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ threadId })
+      })
+      .then(res => res.json())
+      .then(data => {
+        if (data.summary) {
+          output.innerText = "✅ Summary:\n" + data.summary;
+        } else {
+          output.innerText = "⚠️ Error: No summary returned.\n" + JSON.stringify(data);
+        }
+      })
+      .catch(err => {
+        output.innerText = "❌ Failed to fetch summary:\n" + err;
+      });
+    }
+  </script>
 </body>
 </html>
