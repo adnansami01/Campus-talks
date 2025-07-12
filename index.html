@@ -27,6 +27,12 @@
   </style>
 </head>
 <body>
+  fetch("https://campus-talks-backend.deno.dev", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({ threadId: "..." }),
+});
+
   <div class="container">
     <h1>📄 Campus Talks – Thread Summarizer API</h1>
     <p>This project is a server-side function written in TypeScript (Deno) that uses:</p>
